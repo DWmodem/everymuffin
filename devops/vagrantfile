@@ -1,0 +1,18 @@
+# This vagrantfile is for development purposes.
+# Which is why 9002 is forwarded to 80
+# This makes it difficult to test the well-functioning of the nginx serving scheme
+# To test if serving with nginx is working, simply forward 80 -> 80 and:
+# 
+# $ vagrant reload
+
+Vagrant.configure(2) do |config|
+
+  config.vm.box = "ubuntu/xenial64"
+  config.vm.network "forwarded_port", guest: 22, host: 2201
+  config.vm.network "forwarded_port", guest: 9001, host: 9001
+  config.vm.network "forwarded_port", guest: 9002, host: 80
+  config.vm.provider "virtualbox" do |vb|
+    vb.name = "everymuffin"
+    vb.memory = "4096"
+  end
+end
